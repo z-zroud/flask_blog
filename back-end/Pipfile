@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+python-dotenv = "*"
+flask-cors = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+marshmallow = "*"
+psycopg2 = "*"
+flask-httpauth = "*"
+pyjwt = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

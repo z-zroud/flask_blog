@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="section is-link is-fullheight-with-navbar">
+    <button class="button is-primary">{{ msg }}</button>
     <button class="button is-dark">{{ msg }}</button>
   </div>
 </template>

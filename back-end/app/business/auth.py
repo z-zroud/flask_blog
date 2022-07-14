@@ -19,6 +19,6 @@ def verify_password(account, password):
 @token_auth.verify_token
 def verify_token(token):
     user_id = verify_jwt(token)
-    if user_id is None:
+    if user_id is None: 
         return False
     return g.current_user.id == user_id

@@ -4,9 +4,9 @@ from app.plugins import db
 
 
 def add_user(user:User) -> Response:
-    user = User.query.filter_by(account=user.account).first()
-    if user:
-        return Response(status_code=400, msg=f"user {user.account} has already existed.")
+    existed_user = User.query.filter_by(account=user.account).first()
+    if existed_user:
+        return Response(status_code=400, msg=f"user {existed_user.account} has already existed.")
     
     db.session.add(user)
     db.session.commit()

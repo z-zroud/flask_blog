@@ -1,5 +1,6 @@
 from marshmallow import Schema, fields, post_load, validate
 from app.models.user import User
+from app.constant.user_type import UserType
 from werkzeug.security import generate_password_hash
 
 # class BaseSchema(Schema):
@@ -15,13 +16,13 @@ class UserReq(Schema):
     account_type = fields.Int(data_key='account_type')
 
     @post_load
-    def create_user(self, data, **kwargs):
+    def create_user(self, data:dict, **kwargs):
         new_user = User()
-        new_user.secret = generate_password_hash(data['password'])
-        new_user.account = data['account']
-        new_user.email = data['email']
-        new_user.display_name = data['display_name']
-        new_user.account_type = data['account_type']
+        new_user.secret = generate_password_hash(data.get('password'))
+        new_user.account = data.get('account')
+        new_user.email = data.get('email')
+        new_user.display_name = data.get('display_name')
+        new_user.account_type = data.get('account_type', UserType.common_user)
 
         return new_user
 

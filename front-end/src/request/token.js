@@ -1,5 +1,5 @@
 export function getToken() {
-  return window.localStorage.getItem("token");
+  return window.localStorage.getItem("blog-token");
 }
 
 export function setToken(token) {

@@ -11,6 +11,7 @@ service.interceptors.request.use(
   (config) => {
     if (getToken()) {
       config.headers["token"] = getToken();
+      config.headers["Access-Control-Allow-Origin"] = "*";
     }
     return config;
   },

@@ -6,7 +6,7 @@
         <div class="field">
           <div class="label">Username</div>
           <div class="control">
-            <input class="input" type="text" v-model="username" />
+            <input class="input" type="text" v-model="account" />
           </div>
         </div>
         <div class="field">
@@ -34,32 +34,25 @@
 </template>
 
 <script>
-import axios from "axios";
+import { register } from "@/request/api/register";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: "Login",
+  name: "Register",
   data() {
     return {
-      username: "",
+      account: "",
       password: "",
       email: "",
     };
   },
   methods: {
     onSubmit() {
-      const server = "http://localhost:5000/api/users";
-      const user = {
-        username: this.username,
-        password: this.password,
-        email: this.email,
-      };
-      axios
-        .post(server, user)
+      register(this.account, this.password, this.email)
         .then((response) => {
-          window.localStorage.setItem("blog-token", response.data.token);
+          console.log("correct: %o", response);
         })
         .catch((error) => {
-          console.log(error.response);
+          console.log("err: %o", error.response);
         });
     },
   },

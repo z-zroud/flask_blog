@@ -5,21 +5,27 @@
         <p class="title is-3">Register</p>
         <div class="field">
           <div class="label">Username</div>
-          <div class="control">
-            <input class="input" type="text" v-model="account" />
+          <div class="control has-icons-left has-icons-right">
+            <input class="input" name="field" type="text" v-model="value" />
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+            <span class="icon is-small is-right">
+              <i class="fas fa-check"></i>
+            </span>
           </div>
+          <span>{{ errorMessage }}</span>
         </div>
         <div class="field">
           <div class="label">Email address</div>
           <div class="control">
-            <input class="input" type="text" v-model="email" />
+            <input class="input" type="text" />
           </div>
         </div>
-
         <div class="field">
           <div class="label">Password</div>
           <div class="control">
-            <input class="input" type="password" v-model="password" />
+            <input class="input" type="password" />
           </div>
         </div>
 
@@ -35,9 +41,22 @@
 
 <script>
 import { register } from "@/request/api/register";
+import { useField } from "vee-validate";
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Register",
+
+  setup() {
+    // Validator function
+    const isRequired = (value) => (value ? true : "This field is required");
+    const { value, errorMessage } = useField("field", isRequired);
+
+    return {
+      value,
+      errorMessage,
+    };
+  },
   data() {
     return {
       account: "",
@@ -46,6 +65,9 @@ export default {
     };
   },
   methods: {
+    isRequired(value) {
+      return value ? true : "This field is required";
+    },
     onSubmit() {
       register(this.account, this.password, this.email)
         .then((response) => {

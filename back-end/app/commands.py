@@ -12,4 +12,4 @@ def initdb(drop):
         db.drop_all()
         click.echo('Drop all tables')
     db.create_all()
-    click.echo("Init database.")
+    click.echo("Init database.") 

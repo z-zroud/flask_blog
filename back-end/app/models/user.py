@@ -2,6 +2,7 @@ from app.plugins import db
 
 
 class User(db.Model):
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     account = db.Column(db.String(128), nullable=False, unique=True)
     email = db.Column(db.String(64), nullable=False, unique=True)

@@ -1,13 +1,21 @@
 from app.models.user import User
-from app.schema.response import Response
+from app.schema.user import UserReq
+from app.exceptions import HasExistedException
 from app.plugins import db
 
 
-def add_user(user:User) -> Response:
+def add_user(user:UserReq) -> User|HasExistedException:
     existed_user = User.query.filter_by(account=user.account).first()
     if existed_user:
-        return Response(status_code=400, msg=f"user {existed_user.account} has already existed.")
+        raise HasExistedException(reason=f"user {existed_user.account} has already existed.")
     
-    db.session.add(user)
+    new_user = User()
+    new_user.account = user.account
+    new_user.account_type = user.account_type
+    new_user.display_name = user.display_name
+    new_user.email = user.email
+    new_user.secret = user.secret
+
+    db.session.add(new_user)
     db.session.commit()
-    return Response()
+    return new_user
